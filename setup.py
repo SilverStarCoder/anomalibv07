@@ -1,4 +1,4 @@
-"""Setup file for anomalib."""
+"""Setup file for anomalib_custom."""
 
 # Copyright (C) 2022 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
@@ -12,15 +12,15 @@ from types import ModuleType
 from setuptools import find_packages, setup
 
 
-def load_module(name: str = "src/anomalib/__init__.py") -> ModuleType:
+def load_module(name: str = "src/anomalib_custom/__init__.py") -> ModuleType:
     """Load Python Module.
 
     Args:
         name (str, optional): Name of the module to load.
-            Defaults to "anomalib/__init__.py".
+            Defaults to "src/anomalib_custom/__init__.py".
 
     Returns:
-        _type_: _description_
+        ModuleType: The loaded module.
     """
     location = str(Path(__file__).parent / name)
     spec = spec_from_file_location(name=name, location=location)
@@ -30,11 +30,11 @@ def load_module(name: str = "src/anomalib/__init__.py") -> ModuleType:
 
 
 def get_version() -> str:
-    """Get version from `anomalib.__init__`.
+    """Get version from `anomalib_custom.__init__`.
 
-    Version is stored in the main __init__ module in `anomalib`.
-    The varible storing the version is `__version__`. This function
-    reads `__init__` file, checks `__version__ variable and return
+    Version is stored in the main __init__ module in `anomalib_custom`.
+    The variable storing the version is `__version__`. This function
+    reads the `__init__` file, checks the `__version__` variable, and returns
     the value assigned to it.
 
     Example:
@@ -43,20 +43,20 @@ def get_version() -> str:
         "0.2.6"
 
     Returns:
-        str: `anomalib` version.
+        str: `anomalib_custom` version.
     """
-    anomalib = load_module(name="src/anomalib/__init__.py")
-    version = anomalib.__version__
+    anomalib_custom = load_module(name="src/anomalib_custom/__init__.py")
+    version = anomalib_custom.__version__
     return version
 
 
 def get_required_packages(requirement_files: list[str]) -> list[str]:
     """Get packages from requirements.txt file.
 
-    This function returns list of required packages from requirement files.
+    This function returns a list of required packages from requirement files.
 
     Args:
-        requirement_files (list[str]): txt files that contains list of required
+        requirement_files (list[str]): txt files that contain a list of required
             packages.
 
     Example:
@@ -64,7 +64,7 @@ def get_required_packages(requirement_files: list[str]) -> list[str]:
         ['onnx>=1.8.1', 'networkx~=2.5', 'openvino-dev==2021.4.1', ...]
 
     Returns:
-        list[str]: List of required packages
+        list[str]: List of required packages.
     """
 
     required_packages: list[str] = []
@@ -89,7 +89,6 @@ EXTRAS_REQUIRE = {
     "full": get_required_packages(requirement_files=["loggers", "notebooks", "openvino"]),
 }
 
-
 setup(
     name="anomalib_custom",
     version=get_version(),
@@ -99,15 +98,13 @@ setup(
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
     url="",
-    license="Copyright (c) Intel - All Rights Reserved. "
-    'Licensed under the Apache License, Version 2.0 (the "License")'
-    "See LICENSE file for more details.",
+    license="Apache License, Version 2.0",
     python_requires=">=3.7",
     package_dir={"": "src"},
-    packages=find_packages(where="src", include=["anomalib", "anomalib.*"]),
+    packages=find_packages(where="src", include=["anomalib_custom", "anomalib_custom.*"]),
     install_requires=INSTALL_REQUIRES,
     extras_require=EXTRAS_REQUIRE,
     include_package_data=True,
     package_data={"": ["config.yaml"]},
-    entry_points={"console_scripts": ["anomalib=anomalib.utils.cli.cli:main"]},
+    entry_points={"console_scripts": ["anomalib=anomalib_custom.utils.cli.cli:main"]},
 )
