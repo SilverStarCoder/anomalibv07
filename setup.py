@@ -91,7 +91,7 @@ EXTRAS_REQUIRE = {
 
 
 setup(
-    name="anomalib",
+    name="anomalib_custom",
     version=get_version(),
     author="Intel OpenVINO",
     author_email="help@openvino.intel.com",
