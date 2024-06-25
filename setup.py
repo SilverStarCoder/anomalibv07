@@ -12,12 +12,12 @@ from types import ModuleType
 from setuptools import find_packages, setup
 
 
-def load_module(name: str = "src/anomalib_custom/__init__.py") -> ModuleType:
+def load_module(name: str = "src/anomalib/__init__.py") -> ModuleType:
     """Load Python Module.
 
     Args:
         name (str, optional): Name of the module to load.
-            Defaults to "src/anomalib_custom/__init__.py".
+            Defaults to "src/anomalib/__init__.py".
 
     Returns:
         ModuleType: The loaded module.
@@ -30,9 +30,9 @@ def load_module(name: str = "src/anomalib_custom/__init__.py") -> ModuleType:
 
 
 def get_version() -> str:
-    """Get version from `anomalib_custom.__init__`.
+    """Get version from `anomalib.__init__`.
 
-    Version is stored in the main __init__ module in `anomalib_custom`.
+    Version is stored in the main __init__ module in `anomalib`.
     The variable storing the version is `__version__`. This function
     reads the `__init__` file, checks the `__version__` variable, and returns
     the value assigned to it.
@@ -43,10 +43,10 @@ def get_version() -> str:
         "0.2.6"
 
     Returns:
-        str: `anomalib_custom` version.
+        str: `anomalib` version.
     """
-    anomalib_custom = load_module(name="src/anomalib_custom/__init__.py")
-    version = anomalib_custom.__version__
+    anomalib = load_module(name="src/anomalib/__init__.py")
+    version = anomalib.__version__
     return version
 
 
@@ -101,10 +101,10 @@ setup(
     license="Apache License, Version 2.0",
     python_requires=">=3.7",
     package_dir={"": "src"},
-    packages=find_packages(where="src", include=["anomalib_custom", "anomalib_custom.*"]),
+    packages=find_packages(where="src", include=["anomalib", "anomalib.*"]),
     install_requires=INSTALL_REQUIRES,
     extras_require=EXTRAS_REQUIRE,
     include_package_data=True,
     package_data={"": ["config.yaml"]},
-    entry_points={"console_scripts": ["anomalib=anomalib_custom.utils.cli.cli:main"]},
+    entry_points={"console_scripts": ["anomalib_custom=anomalib.utils.cli.cli:main"]},
 )
