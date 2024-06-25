@@ -1,16 +1,9 @@
 """Setup file for anomalib_custom."""
 
-# Copyright (C) 2022 Intel Corporation
-# SPDX-License-Identifier: Apache-2.0
-
-from __future__ import annotations
-
-from importlib.util import module_from_spec, spec_from_file_location
-from pathlib import Path
-from types import ModuleType
-
 from setuptools import find_packages, setup
-
+from pathlib import Path
+from importlib.util import module_from_spec, spec_from_file_location
+from types import ModuleType
 
 def load_module(name: str = "src/anomalib/__init__.py") -> ModuleType:
     """Load Python Module.
@@ -27,7 +20,6 @@ def load_module(name: str = "src/anomalib/__init__.py") -> ModuleType:
     module = module_from_spec(spec)  # type: ignore
     spec.loader.exec_module(module)  # type: ignore
     return module
-
 
 def get_version() -> str:
     """Get version from `anomalib.__init__`.
@@ -48,7 +40,6 @@ def get_version() -> str:
     anomalib = load_module(name="src/anomalib/__init__.py")
     version = anomalib.__version__
     return version
-
 
 def get_required_packages(requirement_files: list[str]) -> list[str]:
     """Get packages from requirements.txt file.
@@ -78,7 +69,6 @@ def get_required_packages(requirement_files: list[str]) -> list[str]:
 
     return required_packages
 
-
 VERSION = get_version()
 LONG_DESCRIPTION = (Path(__file__).parent / "README.md").read_text(encoding="utf8")
 INSTALL_REQUIRES = get_required_packages(requirement_files=["base"])
@@ -91,7 +81,7 @@ EXTRAS_REQUIRE = {
 
 setup(
     name="anomalib_custom",
-    version=get_version(),
+    version=VERSION,
     author="Intel OpenVINO",
     author_email="help@openvino.intel.com",
     description="anomalib - Anomaly Detection Library",
@@ -101,7 +91,7 @@ setup(
     license="Apache License, Version 2.0",
     python_requires=">=3.7",
     package_dir={"": "src"},
-    packages=find_packages(where="src", include=["anomalib", "anomalib.*"]),
+    packages=find_packages(where="src", include=["anomalib", "anomalib.*", "anomalib_custom", "anomalib_custom.*"]),
     install_requires=INSTALL_REQUIRES,
     extras_require=EXTRAS_REQUIRE,
     include_package_data=True,
